@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkOpenSortMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkOpenSort">
+    <id column="openSortId" jdbcType="INTEGER" property="opensortid" />
+    <result column="openSortName" jdbcType="VARCHAR" property="opensortname" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    openSortId, openSortName, status
+  </sql>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkOpenSortExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_open_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from iwork_open_sort
+    where openSortId = #{opensortid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_open_sort
+    where openSortId = #{opensortid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkOpenSortExample">
+    delete from iwork_open_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkOpenSort">
+    insert into iwork_open_sort (openSortId, openSortName, status
+      )
+    values (#{opensortid,jdbcType=INTEGER}, #{opensortname,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkOpenSort">
+    insert into iwork_open_sort
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="opensortid != null">
+        openSortId,
+      </if>
+      <if test="opensortname != null">
+        openSortName,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="opensortid != null">
+        #{opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="opensortname != null">
+        #{opensortname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkOpenSortExample" resultType="java.lang.Long">
+    select count(*) from iwork_open_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_open_sort
+    <set>
+      <if test="record.opensortid != null">
+        openSortId = #{record.opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.opensortname != null">
+        openSortName = #{record.opensortname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_open_sort
+    set openSortId = #{record.opensortid,jdbcType=INTEGER},
+      openSortName = #{record.opensortname,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkOpenSort">
+    update iwork_open_sort
+    <set>
+      <if test="opensortname != null">
+        openSortName = #{opensortname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where openSortId = #{opensortid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkOpenSort">
+    update iwork_open_sort
+    set openSortName = #{opensortname,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where openSortId = #{opensortid,jdbcType=INTEGER}
+  </update>
+</mapper>

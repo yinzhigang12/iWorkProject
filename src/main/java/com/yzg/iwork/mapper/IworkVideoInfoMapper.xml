@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkVideoInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkVideoInfo">
+    <id column="videoInfoId" jdbcType="INTEGER" property="videoinfoid" />
+    <result column="videoName" jdbcType="VARCHAR" property="videoname" />
+    <result column="videoPicAddr" jdbcType="VARCHAR" property="videopicaddr" />
+    <result column="videoAddr" jdbcType="VARCHAR" property="videoaddr" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yzg.iwork.pojo.IworkVideoInfo">
+    <result column="videoComment" jdbcType="LONGVARCHAR" property="videocomment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    videoInfoId, videoName, videoPicAddr, videoAddr, status
+  </sql>
+  <sql id="Blob_Column_List">
+    videoComment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkVideoInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_video_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkVideoInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_video_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_video_info
+    where videoInfoId = #{videoinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_video_info
+    where videoInfoId = #{videoinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkVideoInfoExample">
+    delete from iwork_video_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkVideoInfo">
+    insert into iwork_video_info (videoInfoId, videoName, videoPicAddr, 
+      videoAddr, status, videoComment
+      )
+    values (#{videoinfoid,jdbcType=INTEGER}, #{videoname,jdbcType=VARCHAR}, #{videopicaddr,jdbcType=VARCHAR}, 
+      #{videoaddr,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{videocomment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkVideoInfo">
+    insert into iwork_video_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoinfoid != null">
+        videoInfoId,
+      </if>
+      <if test="videoname != null">
+        videoName,
+      </if>
+      <if test="videopicaddr != null">
+        videoPicAddr,
+      </if>
+      <if test="videoaddr != null">
+        videoAddr,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="videocomment != null">
+        videoComment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoinfoid != null">
+        #{videoinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="videoname != null">
+        #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videopicaddr != null">
+        #{videopicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="videoaddr != null">
+        #{videoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="videocomment != null">
+        #{videocomment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkVideoInfoExample" resultType="java.lang.Long">
+    select count(*) from iwork_video_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_video_info
+    <set>
+      <if test="record.videoinfoid != null">
+        videoInfoId = #{record.videoinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.videoname != null">
+        videoName = #{record.videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videopicaddr != null">
+        videoPicAddr = #{record.videopicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoaddr != null">
+        videoAddr = #{record.videoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.videocomment != null">
+        videoComment = #{record.videocomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update iwork_video_info
+    set videoInfoId = #{record.videoinfoid,jdbcType=INTEGER},
+      videoName = #{record.videoname,jdbcType=VARCHAR},
+      videoPicAddr = #{record.videopicaddr,jdbcType=VARCHAR},
+      videoAddr = #{record.videoaddr,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      videoComment = #{record.videocomment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_video_info
+    set videoInfoId = #{record.videoinfoid,jdbcType=INTEGER},
+      videoName = #{record.videoname,jdbcType=VARCHAR},
+      videoPicAddr = #{record.videopicaddr,jdbcType=VARCHAR},
+      videoAddr = #{record.videoaddr,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkVideoInfo">
+    update iwork_video_info
+    <set>
+      <if test="videoname != null">
+        videoName = #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videopicaddr != null">
+        videoPicAddr = #{videopicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="videoaddr != null">
+        videoAddr = #{videoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="videocomment != null">
+        videoComment = #{videocomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where videoInfoId = #{videoinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkVideoInfo">
+    update iwork_video_info
+    set videoName = #{videoname,jdbcType=VARCHAR},
+      videoPicAddr = #{videopicaddr,jdbcType=VARCHAR},
+      videoAddr = #{videoaddr,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      videoComment = #{videocomment,jdbcType=LONGVARCHAR}
+    where videoInfoId = #{videoinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkVideoInfo">
+    update iwork_video_info
+    set videoName = #{videoname,jdbcType=VARCHAR},
+      videoPicAddr = #{videopicaddr,jdbcType=VARCHAR},
+      videoAddr = #{videoaddr,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where videoInfoId = #{videoinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkStudyGoalInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkStudyGoalInfo">
+    <id column="studyGoalInfoId" jdbcType="INTEGER" property="studygoalinfoid" />
+    <result column="studyGoalName" jdbcType="VARCHAR" property="studygoalname" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="studyGoalSortId" jdbcType="INTEGER" property="studygoalsortid" />
+    <result column="studyGoalStatusId" jdbcType="INTEGER" property="studygoalstatusid" />
+    <result column="recordId" jdbcType="INTEGER" property="recordid" />
+    <result column="recordSortId" jdbcType="INTEGER" property="recordsortid" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yzg.iwork.pojo.IworkStudyGoalInfo">
+    <result column="studyGoalComment" jdbcType="LONGVARCHAR" property="studygoalcomment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    studyGoalInfoId, studyGoalName, userId, studyGoalSortId, studyGoalStatusId, recordId, 
+    recordSortId, startTime, endTime, status
+  </sql>
+  <sql id="Blob_Column_List">
+    studyGoalComment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_study_goal_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_study_goal_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_study_goal_info
+    where studyGoalInfoId = #{studygoalinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_study_goal_info
+    where studyGoalInfoId = #{studygoalinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfoExample">
+    delete from iwork_study_goal_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfo">
+    insert into iwork_study_goal_info (studyGoalInfoId, studyGoalName, userId, 
+      studyGoalSortId, studyGoalStatusId, recordId, 
+      recordSortId, startTime, endTime, 
+      status, studyGoalComment)
+    values (#{studygoalinfoid,jdbcType=INTEGER}, #{studygoalname,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{studygoalsortid,jdbcType=INTEGER}, #{studygoalstatusid,jdbcType=INTEGER}, #{recordid,jdbcType=INTEGER}, 
+      #{recordsortid,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{studygoalcomment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfo">
+    insert into iwork_study_goal_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studygoalinfoid != null">
+        studyGoalInfoId,
+      </if>
+      <if test="studygoalname != null">
+        studyGoalName,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="studygoalsortid != null">
+        studyGoalSortId,
+      </if>
+      <if test="studygoalstatusid != null">
+        studyGoalStatusId,
+      </if>
+      <if test="recordid != null">
+        recordId,
+      </if>
+      <if test="recordsortid != null">
+        recordSortId,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="studygoalcomment != null">
+        studyGoalComment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studygoalinfoid != null">
+        #{studygoalinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="studygoalname != null">
+        #{studygoalname,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="studygoalsortid != null">
+        #{studygoalsortid,jdbcType=INTEGER},
+      </if>
+      <if test="studygoalstatusid != null">
+        #{studygoalstatusid,jdbcType=INTEGER},
+      </if>
+      <if test="recordid != null">
+        #{recordid,jdbcType=INTEGER},
+      </if>
+      <if test="recordsortid != null">
+        #{recordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="studygoalcomment != null">
+        #{studygoalcomment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfoExample" resultType="java.lang.Long">
+    select count(*) from iwork_study_goal_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_study_goal_info
+    <set>
+      <if test="record.studygoalinfoid != null">
+        studyGoalInfoId = #{record.studygoalinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studygoalname != null">
+        studyGoalName = #{record.studygoalname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studygoalsortid != null">
+        studyGoalSortId = #{record.studygoalsortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studygoalstatusid != null">
+        studyGoalStatusId = #{record.studygoalstatusid,jdbcType=INTEGER},
+      </if>
+      <if test="record.recordid != null">
+        recordId = #{record.recordid,jdbcType=INTEGER},
+      </if>
+      <if test="record.recordsortid != null">
+        recordSortId = #{record.recordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.starttime != null">
+        startTime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null">
+        endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.studygoalcomment != null">
+        studyGoalComment = #{record.studygoalcomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update iwork_study_goal_info
+    set studyGoalInfoId = #{record.studygoalinfoid,jdbcType=INTEGER},
+      studyGoalName = #{record.studygoalname,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      studyGoalSortId = #{record.studygoalsortid,jdbcType=INTEGER},
+      studyGoalStatusId = #{record.studygoalstatusid,jdbcType=INTEGER},
+      recordId = #{record.recordid,jdbcType=INTEGER},
+      recordSortId = #{record.recordsortid,jdbcType=INTEGER},
+      startTime = #{record.starttime,jdbcType=TIMESTAMP},
+      endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      studyGoalComment = #{record.studygoalcomment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_study_goal_info
+    set studyGoalInfoId = #{record.studygoalinfoid,jdbcType=INTEGER},
+      studyGoalName = #{record.studygoalname,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      studyGoalSortId = #{record.studygoalsortid,jdbcType=INTEGER},
+      studyGoalStatusId = #{record.studygoalstatusid,jdbcType=INTEGER},
+      recordId = #{record.recordid,jdbcType=INTEGER},
+      recordSortId = #{record.recordsortid,jdbcType=INTEGER},
+      startTime = #{record.starttime,jdbcType=TIMESTAMP},
+      endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfo">
+    update iwork_study_goal_info
+    <set>
+      <if test="studygoalname != null">
+        studyGoalName = #{studygoalname,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="studygoalsortid != null">
+        studyGoalSortId = #{studygoalsortid,jdbcType=INTEGER},
+      </if>
+      <if test="studygoalstatusid != null">
+        studyGoalStatusId = #{studygoalstatusid,jdbcType=INTEGER},
+      </if>
+      <if test="recordid != null">
+        recordId = #{recordid,jdbcType=INTEGER},
+      </if>
+      <if test="recordsortid != null">
+        recordSortId = #{recordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="studygoalcomment != null">
+        studyGoalComment = #{studygoalcomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where studyGoalInfoId = #{studygoalinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfo">
+    update iwork_study_goal_info
+    set studyGoalName = #{studygoalname,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      studyGoalSortId = #{studygoalsortid,jdbcType=INTEGER},
+      studyGoalStatusId = #{studygoalstatusid,jdbcType=INTEGER},
+      recordId = #{recordid,jdbcType=INTEGER},
+      recordSortId = #{recordsortid,jdbcType=INTEGER},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      studyGoalComment = #{studygoalcomment,jdbcType=LONGVARCHAR}
+    where studyGoalInfoId = #{studygoalinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkStudyGoalInfo">
+    update iwork_study_goal_info
+    set studyGoalName = #{studygoalname,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      studyGoalSortId = #{studygoalsortid,jdbcType=INTEGER},
+      studyGoalStatusId = #{studygoalstatusid,jdbcType=INTEGER},
+      recordId = #{recordid,jdbcType=INTEGER},
+      recordSortId = #{recordsortid,jdbcType=INTEGER},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where studyGoalInfoId = #{studygoalinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

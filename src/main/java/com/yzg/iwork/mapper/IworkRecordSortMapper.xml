@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkRecordSortMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkRecordSort">
+    <id column="recordSortId" jdbcType="INTEGER" property="recordsortid" />
+    <result column="recordSortName" jdbcType="VARCHAR" property="recordsortname" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    recordSortId, recordSortName, userId, status
+  </sql>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkRecordSortExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_record_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from iwork_record_sort
+    where recordSortId = #{recordsortid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_record_sort
+    where recordSortId = #{recordsortid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkRecordSortExample">
+    delete from iwork_record_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkRecordSort">
+    insert into iwork_record_sort (recordSortId, recordSortName, userId, 
+      status)
+    values (#{recordsortid,jdbcType=INTEGER}, #{recordsortname,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkRecordSort">
+    insert into iwork_record_sort
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordsortid != null">
+        recordSortId,
+      </if>
+      <if test="recordsortname != null">
+        recordSortName,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordsortid != null">
+        #{recordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="recordsortname != null">
+        #{recordsortname,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkRecordSortExample" resultType="java.lang.Long">
+    select count(*) from iwork_record_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_record_sort
+    <set>
+      <if test="record.recordsortid != null">
+        recordSortId = #{record.recordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.recordsortname != null">
+        recordSortName = #{record.recordsortname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_record_sort
+    set recordSortId = #{record.recordsortid,jdbcType=INTEGER},
+      recordSortName = #{record.recordsortname,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkRecordSort">
+    update iwork_record_sort
+    <set>
+      <if test="recordsortname != null">
+        recordSortName = #{recordsortname,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where recordSortId = #{recordsortid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkRecordSort">
+    update iwork_record_sort
+    set recordSortName = #{recordsortname,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where recordSortId = #{recordsortid,jdbcType=INTEGER}
+  </update>
+</mapper>

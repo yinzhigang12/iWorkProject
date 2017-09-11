@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkHistoryInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkHistoryInfo">
+    <id column="historyInfoId" jdbcType="INTEGER" property="historyinfoid" />
+    <result column="historySortId" jdbcType="INTEGER" property="historysortid" />
+    <result column="historyInfoName" jdbcType="VARCHAR" property="historyinfoname" />
+    <result column="historyTime" jdbcType="TIMESTAMP" property="historytime" />
+    <result column="historyInfoAddr" jdbcType="VARCHAR" property="historyinfoaddr" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yzg.iwork.pojo.IworkHistoryInfo">
+    <result column="historyInfoComment" jdbcType="LONGVARCHAR" property="historyinfocomment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    historyInfoId, historySortId, historyInfoName, historyTime, historyInfoAddr, status
+  </sql>
+  <sql id="Blob_Column_List">
+    historyInfoComment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkHistoryInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_history_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkHistoryInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_history_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_history_info
+    where historyInfoId = #{historyinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_history_info
+    where historyInfoId = #{historyinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkHistoryInfoExample">
+    delete from iwork_history_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkHistoryInfo">
+    insert into iwork_history_info (historyInfoId, historySortId, historyInfoName, 
+      historyTime, historyInfoAddr, status, 
+      historyInfoComment)
+    values (#{historyinfoid,jdbcType=INTEGER}, #{historysortid,jdbcType=INTEGER}, #{historyinfoname,jdbcType=VARCHAR}, 
+      #{historytime,jdbcType=TIMESTAMP}, #{historyinfoaddr,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{historyinfocomment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkHistoryInfo">
+    insert into iwork_history_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="historyinfoid != null">
+        historyInfoId,
+      </if>
+      <if test="historysortid != null">
+        historySortId,
+      </if>
+      <if test="historyinfoname != null">
+        historyInfoName,
+      </if>
+      <if test="historytime != null">
+        historyTime,
+      </if>
+      <if test="historyinfoaddr != null">
+        historyInfoAddr,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="historyinfocomment != null">
+        historyInfoComment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="historyinfoid != null">
+        #{historyinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="historysortid != null">
+        #{historysortid,jdbcType=INTEGER},
+      </if>
+      <if test="historyinfoname != null">
+        #{historyinfoname,jdbcType=VARCHAR},
+      </if>
+      <if test="historytime != null">
+        #{historytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="historyinfoaddr != null">
+        #{historyinfoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="historyinfocomment != null">
+        #{historyinfocomment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkHistoryInfoExample" resultType="java.lang.Long">
+    select count(*) from iwork_history_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_history_info
+    <set>
+      <if test="record.historyinfoid != null">
+        historyInfoId = #{record.historyinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.historysortid != null">
+        historySortId = #{record.historysortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.historyinfoname != null">
+        historyInfoName = #{record.historyinfoname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.historytime != null">
+        historyTime = #{record.historytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.historyinfoaddr != null">
+        historyInfoAddr = #{record.historyinfoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.historyinfocomment != null">
+        historyInfoComment = #{record.historyinfocomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update iwork_history_info
+    set historyInfoId = #{record.historyinfoid,jdbcType=INTEGER},
+      historySortId = #{record.historysortid,jdbcType=INTEGER},
+      historyInfoName = #{record.historyinfoname,jdbcType=VARCHAR},
+      historyTime = #{record.historytime,jdbcType=TIMESTAMP},
+      historyInfoAddr = #{record.historyinfoaddr,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      historyInfoComment = #{record.historyinfocomment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_history_info
+    set historyInfoId = #{record.historyinfoid,jdbcType=INTEGER},
+      historySortId = #{record.historysortid,jdbcType=INTEGER},
+      historyInfoName = #{record.historyinfoname,jdbcType=VARCHAR},
+      historyTime = #{record.historytime,jdbcType=TIMESTAMP},
+      historyInfoAddr = #{record.historyinfoaddr,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkHistoryInfo">
+    update iwork_history_info
+    <set>
+      <if test="historysortid != null">
+        historySortId = #{historysortid,jdbcType=INTEGER},
+      </if>
+      <if test="historyinfoname != null">
+        historyInfoName = #{historyinfoname,jdbcType=VARCHAR},
+      </if>
+      <if test="historytime != null">
+        historyTime = #{historytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="historyinfoaddr != null">
+        historyInfoAddr = #{historyinfoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="historyinfocomment != null">
+        historyInfoComment = #{historyinfocomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where historyInfoId = #{historyinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkHistoryInfo">
+    update iwork_history_info
+    set historySortId = #{historysortid,jdbcType=INTEGER},
+      historyInfoName = #{historyinfoname,jdbcType=VARCHAR},
+      historyTime = #{historytime,jdbcType=TIMESTAMP},
+      historyInfoAddr = #{historyinfoaddr,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      historyInfoComment = #{historyinfocomment,jdbcType=LONGVARCHAR}
+    where historyInfoId = #{historyinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkHistoryInfo">
+    update iwork_history_info
+    set historySortId = #{historysortid,jdbcType=INTEGER},
+      historyInfoName = #{historyinfoname,jdbcType=VARCHAR},
+      historyTime = #{historytime,jdbcType=TIMESTAMP},
+      historyInfoAddr = #{historyinfoaddr,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where historyInfoId = #{historyinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

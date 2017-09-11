@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkNewsSortMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkNewsSort">
+    <id column="newSortId" jdbcType="INTEGER" property="newsortid" />
+    <result column="newSourceId" jdbcType="INTEGER" property="newsourceid" />
+    <result column="newSortName" jdbcType="VARCHAR" property="newsortname" />
+    <result column="openSortId" jdbcType="INTEGER" property="opensortid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    newSortId, newSourceId, newSortName, openSortId, status
+  </sql>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkNewsSortExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_news_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from iwork_news_sort
+    where newSortId = #{newsortid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_news_sort
+    where newSortId = #{newsortid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkNewsSortExample">
+    delete from iwork_news_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkNewsSort">
+    insert into iwork_news_sort (newSortId, newSourceId, newSortName, 
+      openSortId, status)
+    values (#{newsortid,jdbcType=INTEGER}, #{newsourceid,jdbcType=INTEGER}, #{newsortname,jdbcType=VARCHAR}, 
+      #{opensortid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkNewsSort">
+    insert into iwork_news_sort
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newsortid != null">
+        newSortId,
+      </if>
+      <if test="newsourceid != null">
+        newSourceId,
+      </if>
+      <if test="newsortname != null">
+        newSortName,
+      </if>
+      <if test="opensortid != null">
+        openSortId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newsortid != null">
+        #{newsortid,jdbcType=INTEGER},
+      </if>
+      <if test="newsourceid != null">
+        #{newsourceid,jdbcType=INTEGER},
+      </if>
+      <if test="newsortname != null">
+        #{newsortname,jdbcType=VARCHAR},
+      </if>
+      <if test="opensortid != null">
+        #{opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkNewsSortExample" resultType="java.lang.Long">
+    select count(*) from iwork_news_sort
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_news_sort
+    <set>
+      <if test="record.newsortid != null">
+        newSortId = #{record.newsortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsourceid != null">
+        newSourceId = #{record.newsourceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsortname != null">
+        newSortName = #{record.newsortname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opensortid != null">
+        openSortId = #{record.opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_news_sort
+    set newSortId = #{record.newsortid,jdbcType=INTEGER},
+      newSourceId = #{record.newsourceid,jdbcType=INTEGER},
+      newSortName = #{record.newsortname,jdbcType=VARCHAR},
+      openSortId = #{record.opensortid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkNewsSort">
+    update iwork_news_sort
+    <set>
+      <if test="newsourceid != null">
+        newSourceId = #{newsourceid,jdbcType=INTEGER},
+      </if>
+      <if test="newsortname != null">
+        newSortName = #{newsortname,jdbcType=VARCHAR},
+      </if>
+      <if test="opensortid != null">
+        openSortId = #{opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where newSortId = #{newsortid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkNewsSort">
+    update iwork_news_sort
+    set newSourceId = #{newsourceid,jdbcType=INTEGER},
+      newSortName = #{newsortname,jdbcType=VARCHAR},
+      openSortId = #{opensortid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where newSortId = #{newsortid,jdbcType=INTEGER}
+  </update>
+</mapper>

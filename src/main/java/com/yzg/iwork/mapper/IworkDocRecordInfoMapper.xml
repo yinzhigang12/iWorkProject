@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkDocRecordInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkDocRecordInfo">
+    <id column="docRecordInfoId" jdbcType="INTEGER" property="docrecordinfoid" />
+    <result column="docRecordSourtId" jdbcType="INTEGER" property="docrecordsourtid" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="docRecordTitle" jdbcType="VARCHAR" property="docrecordtitle" />
+    <result column="booksSourceId" jdbcType="INTEGER" property="bookssourceid" />
+    <result column="docSourceAddr" jdbcType="VARCHAR" property="docsourceaddr" />
+    <result column="docKey" jdbcType="VARCHAR" property="dockey" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yzg.iwork.pojo.IworkDocRecordInfo">
+    <result column="docRecordComment" jdbcType="LONGVARCHAR" property="docrecordcomment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    docRecordInfoId, docRecordSourtId, userId, docRecordTitle, booksSourceId, docSourceAddr, 
+    docKey, addTime, status
+  </sql>
+  <sql id="Blob_Column_List">
+    docRecordComment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_doc_record_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_doc_record_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_doc_record_info
+    where docRecordInfoId = #{docrecordinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_doc_record_info
+    where docRecordInfoId = #{docrecordinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfoExample">
+    delete from iwork_doc_record_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfo">
+    insert into iwork_doc_record_info (docRecordInfoId, docRecordSourtId, 
+      userId, docRecordTitle, booksSourceId, 
+      docSourceAddr, docKey, addTime, 
+      status, docRecordComment)
+    values (#{docrecordinfoid,jdbcType=INTEGER}, #{docrecordsourtid,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{docrecordtitle,jdbcType=VARCHAR}, #{bookssourceid,jdbcType=INTEGER}, 
+      #{docsourceaddr,jdbcType=VARCHAR}, #{dockey,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{docrecordcomment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfo">
+    insert into iwork_doc_record_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="docrecordinfoid != null">
+        docRecordInfoId,
+      </if>
+      <if test="docrecordsourtid != null">
+        docRecordSourtId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="docrecordtitle != null">
+        docRecordTitle,
+      </if>
+      <if test="bookssourceid != null">
+        booksSourceId,
+      </if>
+      <if test="docsourceaddr != null">
+        docSourceAddr,
+      </if>
+      <if test="dockey != null">
+        docKey,
+      </if>
+      <if test="addtime != null">
+        addTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="docrecordcomment != null">
+        docRecordComment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="docrecordinfoid != null">
+        #{docrecordinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="docrecordsourtid != null">
+        #{docrecordsourtid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="docrecordtitle != null">
+        #{docrecordtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bookssourceid != null">
+        #{bookssourceid,jdbcType=INTEGER},
+      </if>
+      <if test="docsourceaddr != null">
+        #{docsourceaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="dockey != null">
+        #{dockey,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="docrecordcomment != null">
+        #{docrecordcomment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfoExample" resultType="java.lang.Long">
+    select count(*) from iwork_doc_record_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_doc_record_info
+    <set>
+      <if test="record.docrecordinfoid != null">
+        docRecordInfoId = #{record.docrecordinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.docrecordsourtid != null">
+        docRecordSourtId = #{record.docrecordsourtid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.docrecordtitle != null">
+        docRecordTitle = #{record.docrecordtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookssourceid != null">
+        booksSourceId = #{record.bookssourceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.docsourceaddr != null">
+        docSourceAddr = #{record.docsourceaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dockey != null">
+        docKey = #{record.dockey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null">
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.docrecordcomment != null">
+        docRecordComment = #{record.docrecordcomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update iwork_doc_record_info
+    set docRecordInfoId = #{record.docrecordinfoid,jdbcType=INTEGER},
+      docRecordSourtId = #{record.docrecordsourtid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      docRecordTitle = #{record.docrecordtitle,jdbcType=VARCHAR},
+      booksSourceId = #{record.bookssourceid,jdbcType=INTEGER},
+      docSourceAddr = #{record.docsourceaddr,jdbcType=VARCHAR},
+      docKey = #{record.dockey,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      docRecordComment = #{record.docrecordcomment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_doc_record_info
+    set docRecordInfoId = #{record.docrecordinfoid,jdbcType=INTEGER},
+      docRecordSourtId = #{record.docrecordsourtid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      docRecordTitle = #{record.docrecordtitle,jdbcType=VARCHAR},
+      booksSourceId = #{record.bookssourceid,jdbcType=INTEGER},
+      docSourceAddr = #{record.docsourceaddr,jdbcType=VARCHAR},
+      docKey = #{record.dockey,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfo">
+    update iwork_doc_record_info
+    <set>
+      <if test="docrecordsourtid != null">
+        docRecordSourtId = #{docrecordsourtid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="docrecordtitle != null">
+        docRecordTitle = #{docrecordtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bookssourceid != null">
+        booksSourceId = #{bookssourceid,jdbcType=INTEGER},
+      </if>
+      <if test="docsourceaddr != null">
+        docSourceAddr = #{docsourceaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="dockey != null">
+        docKey = #{dockey,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="docrecordcomment != null">
+        docRecordComment = #{docrecordcomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where docRecordInfoId = #{docrecordinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfo">
+    update iwork_doc_record_info
+    set docRecordSourtId = #{docrecordsourtid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      docRecordTitle = #{docrecordtitle,jdbcType=VARCHAR},
+      booksSourceId = #{bookssourceid,jdbcType=INTEGER},
+      docSourceAddr = #{docsourceaddr,jdbcType=VARCHAR},
+      docKey = #{dockey,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      docRecordComment = #{docrecordcomment,jdbcType=LONGVARCHAR}
+    where docRecordInfoId = #{docrecordinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkDocRecordInfo">
+    update iwork_doc_record_info
+    set docRecordSourtId = #{docrecordsourtid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      docRecordTitle = #{docrecordtitle,jdbcType=VARCHAR},
+      booksSourceId = #{bookssourceid,jdbcType=INTEGER},
+      docSourceAddr = #{docsourceaddr,jdbcType=VARCHAR},
+      docKey = #{dockey,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where docRecordInfoId = #{docrecordinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

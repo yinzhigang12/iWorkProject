@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkBooksInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkBooksInfo">
+    <id column="booksInfoId" jdbcType="INTEGER" property="booksinfoid" />
+    <result column="booksName" jdbcType="VARCHAR" property="booksname" />
+    <result column="booksSortId" jdbcType="INTEGER" property="bookssortid" />
+    <result column="booksInfoAddr" jdbcType="VARCHAR" property="booksinfoaddr" />
+    <result column="booksPicAddr" jdbcType="VARCHAR" property="bookspicaddr" />
+    <result column="booksPress" jdbcType="VARCHAR" property="bookspress" />
+    <result column="booksPrice" jdbcType="DOUBLE" property="booksprice" />
+    <result column="booksSourceId" jdbcType="INTEGER" property="bookssourceid" />
+    <result column="openSortId" jdbcType="INTEGER" property="opensortid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yzg.iwork.pojo.IworkBooksInfo">
+    <result column="booksComment" jdbcType="LONGVARCHAR" property="bookscomment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    booksInfoId, booksName, booksSortId, booksInfoAddr, booksPicAddr, booksPress, booksPrice, 
+    booksSourceId, openSortId, status
+  </sql>
+  <sql id="Blob_Column_List">
+    booksComment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkBooksInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_books_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkBooksInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_books_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_books_info
+    where booksInfoId = #{booksinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_books_info
+    where booksInfoId = #{booksinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkBooksInfoExample">
+    delete from iwork_books_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkBooksInfo">
+    insert into iwork_books_info (booksInfoId, booksName, booksSortId, 
+      booksInfoAddr, booksPicAddr, booksPress, 
+      booksPrice, booksSourceId, openSortId, 
+      status, booksComment)
+    values (#{booksinfoid,jdbcType=INTEGER}, #{booksname,jdbcType=VARCHAR}, #{bookssortid,jdbcType=INTEGER}, 
+      #{booksinfoaddr,jdbcType=VARCHAR}, #{bookspicaddr,jdbcType=VARCHAR}, #{bookspress,jdbcType=VARCHAR}, 
+      #{booksprice,jdbcType=DOUBLE}, #{bookssourceid,jdbcType=INTEGER}, #{opensortid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{bookscomment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkBooksInfo">
+    insert into iwork_books_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="booksinfoid != null">
+        booksInfoId,
+      </if>
+      <if test="booksname != null">
+        booksName,
+      </if>
+      <if test="bookssortid != null">
+        booksSortId,
+      </if>
+      <if test="booksinfoaddr != null">
+        booksInfoAddr,
+      </if>
+      <if test="bookspicaddr != null">
+        booksPicAddr,
+      </if>
+      <if test="bookspress != null">
+        booksPress,
+      </if>
+      <if test="booksprice != null">
+        booksPrice,
+      </if>
+      <if test="bookssourceid != null">
+        booksSourceId,
+      </if>
+      <if test="opensortid != null">
+        openSortId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="bookscomment != null">
+        booksComment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="booksinfoid != null">
+        #{booksinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="booksname != null">
+        #{booksname,jdbcType=VARCHAR},
+      </if>
+      <if test="bookssortid != null">
+        #{bookssortid,jdbcType=INTEGER},
+      </if>
+      <if test="booksinfoaddr != null">
+        #{booksinfoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="bookspicaddr != null">
+        #{bookspicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="bookspress != null">
+        #{bookspress,jdbcType=VARCHAR},
+      </if>
+      <if test="booksprice != null">
+        #{booksprice,jdbcType=DOUBLE},
+      </if>
+      <if test="bookssourceid != null">
+        #{bookssourceid,jdbcType=INTEGER},
+      </if>
+      <if test="opensortid != null">
+        #{opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bookscomment != null">
+        #{bookscomment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkBooksInfoExample" resultType="java.lang.Long">
+    select count(*) from iwork_books_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_books_info
+    <set>
+      <if test="record.booksinfoid != null">
+        booksInfoId = #{record.booksinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.booksname != null">
+        booksName = #{record.booksname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookssortid != null">
+        booksSortId = #{record.bookssortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.booksinfoaddr != null">
+        booksInfoAddr = #{record.booksinfoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookspicaddr != null">
+        booksPicAddr = #{record.bookspicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookspress != null">
+        booksPress = #{record.bookspress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.booksprice != null">
+        booksPrice = #{record.booksprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bookssourceid != null">
+        booksSourceId = #{record.bookssourceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.opensortid != null">
+        openSortId = #{record.opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookscomment != null">
+        booksComment = #{record.bookscomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update iwork_books_info
+    set booksInfoId = #{record.booksinfoid,jdbcType=INTEGER},
+      booksName = #{record.booksname,jdbcType=VARCHAR},
+      booksSortId = #{record.bookssortid,jdbcType=INTEGER},
+      booksInfoAddr = #{record.booksinfoaddr,jdbcType=VARCHAR},
+      booksPicAddr = #{record.bookspicaddr,jdbcType=VARCHAR},
+      booksPress = #{record.bookspress,jdbcType=VARCHAR},
+      booksPrice = #{record.booksprice,jdbcType=DOUBLE},
+      booksSourceId = #{record.bookssourceid,jdbcType=INTEGER},
+      openSortId = #{record.opensortid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      booksComment = #{record.bookscomment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_books_info
+    set booksInfoId = #{record.booksinfoid,jdbcType=INTEGER},
+      booksName = #{record.booksname,jdbcType=VARCHAR},
+      booksSortId = #{record.bookssortid,jdbcType=INTEGER},
+      booksInfoAddr = #{record.booksinfoaddr,jdbcType=VARCHAR},
+      booksPicAddr = #{record.bookspicaddr,jdbcType=VARCHAR},
+      booksPress = #{record.bookspress,jdbcType=VARCHAR},
+      booksPrice = #{record.booksprice,jdbcType=DOUBLE},
+      booksSourceId = #{record.bookssourceid,jdbcType=INTEGER},
+      openSortId = #{record.opensortid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkBooksInfo">
+    update iwork_books_info
+    <set>
+      <if test="booksname != null">
+        booksName = #{booksname,jdbcType=VARCHAR},
+      </if>
+      <if test="bookssortid != null">
+        booksSortId = #{bookssortid,jdbcType=INTEGER},
+      </if>
+      <if test="booksinfoaddr != null">
+        booksInfoAddr = #{booksinfoaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="bookspicaddr != null">
+        booksPicAddr = #{bookspicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="bookspress != null">
+        booksPress = #{bookspress,jdbcType=VARCHAR},
+      </if>
+      <if test="booksprice != null">
+        booksPrice = #{booksprice,jdbcType=DOUBLE},
+      </if>
+      <if test="bookssourceid != null">
+        booksSourceId = #{bookssourceid,jdbcType=INTEGER},
+      </if>
+      <if test="opensortid != null">
+        openSortId = #{opensortid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bookscomment != null">
+        booksComment = #{bookscomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where booksInfoId = #{booksinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkBooksInfo">
+    update iwork_books_info
+    set booksName = #{booksname,jdbcType=VARCHAR},
+      booksSortId = #{bookssortid,jdbcType=INTEGER},
+      booksInfoAddr = #{booksinfoaddr,jdbcType=VARCHAR},
+      booksPicAddr = #{bookspicaddr,jdbcType=VARCHAR},
+      booksPress = #{bookspress,jdbcType=VARCHAR},
+      booksPrice = #{booksprice,jdbcType=DOUBLE},
+      booksSourceId = #{bookssourceid,jdbcType=INTEGER},
+      openSortId = #{opensortid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      booksComment = #{bookscomment,jdbcType=LONGVARCHAR}
+    where booksInfoId = #{booksinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkBooksInfo">
+    update iwork_books_info
+    set booksName = #{booksname,jdbcType=VARCHAR},
+      booksSortId = #{bookssortid,jdbcType=INTEGER},
+      booksInfoAddr = #{booksinfoaddr,jdbcType=VARCHAR},
+      booksPicAddr = #{bookspicaddr,jdbcType=VARCHAR},
+      booksPress = #{bookspress,jdbcType=VARCHAR},
+      booksPrice = #{booksprice,jdbcType=DOUBLE},
+      booksSourceId = #{bookssourceid,jdbcType=INTEGER},
+      openSortId = #{opensortid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where booksInfoId = #{booksinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

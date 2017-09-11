@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkResumeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkResumeInfo">
+    <id column="resumeInfoId" jdbcType="INTEGER" property="resumeinfoid" />
+    <result column="resumeName" jdbcType="VARCHAR" property="resumename" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="resumeModuleId" jdbcType="INTEGER" property="resumemoduleid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yzg.iwork.pojo.IworkResumeInfo">
+    <result column="resumeComment" jdbcType="LONGVARCHAR" property="resumecomment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    resumeInfoId, resumeName, userId, resumeModuleId, status
+  </sql>
+  <sql id="Blob_Column_List">
+    resumeComment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkResumeInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_resume_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkResumeInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_resume_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iwork_resume_info
+    where resumeInfoId = #{resumeinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_resume_info
+    where resumeInfoId = #{resumeinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkResumeInfoExample">
+    delete from iwork_resume_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkResumeInfo">
+    insert into iwork_resume_info (resumeInfoId, resumeName, userId, 
+      resumeModuleId, status, resumeComment
+      )
+    values (#{resumeinfoid,jdbcType=INTEGER}, #{resumename,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{resumemoduleid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{resumecomment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkResumeInfo">
+    insert into iwork_resume_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resumeinfoid != null">
+        resumeInfoId,
+      </if>
+      <if test="resumename != null">
+        resumeName,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="resumemoduleid != null">
+        resumeModuleId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="resumecomment != null">
+        resumeComment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resumeinfoid != null">
+        #{resumeinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="resumename != null">
+        #{resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="resumemoduleid != null">
+        #{resumemoduleid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="resumecomment != null">
+        #{resumecomment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkResumeInfoExample" resultType="java.lang.Long">
+    select count(*) from iwork_resume_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_resume_info
+    <set>
+      <if test="record.resumeinfoid != null">
+        resumeInfoId = #{record.resumeinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.resumename != null">
+        resumeName = #{record.resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.resumemoduleid != null">
+        resumeModuleId = #{record.resumemoduleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.resumecomment != null">
+        resumeComment = #{record.resumecomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update iwork_resume_info
+    set resumeInfoId = #{record.resumeinfoid,jdbcType=INTEGER},
+      resumeName = #{record.resumename,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      resumeModuleId = #{record.resumemoduleid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      resumeComment = #{record.resumecomment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_resume_info
+    set resumeInfoId = #{record.resumeinfoid,jdbcType=INTEGER},
+      resumeName = #{record.resumename,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      resumeModuleId = #{record.resumemoduleid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkResumeInfo">
+    update iwork_resume_info
+    <set>
+      <if test="resumename != null">
+        resumeName = #{resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="resumemoduleid != null">
+        resumeModuleId = #{resumemoduleid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="resumecomment != null">
+        resumeComment = #{resumecomment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where resumeInfoId = #{resumeinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yzg.iwork.pojo.IworkResumeInfo">
+    update iwork_resume_info
+    set resumeName = #{resumename,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      resumeModuleId = #{resumemoduleid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      resumeComment = #{resumecomment,jdbcType=LONGVARCHAR}
+    where resumeInfoId = #{resumeinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkResumeInfo">
+    update iwork_resume_info
+    set resumeName = #{resumename,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      resumeModuleId = #{resumemoduleid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where resumeInfoId = #{resumeinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

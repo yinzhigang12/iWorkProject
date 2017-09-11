@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="testTables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/yzg_iwork?characterEncoding=utf-8"
+            userId="root"
+            password="">
+        </jdbcConnection>
+
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- targetProject:生成PO类的位置 -->
+        <javaModelGenerator targetPackage="com.yzg.iwork.pojo" targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- targetProject:mapper映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="com.yzg.iwork.mapper" targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!-- targetPackage：mapper接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yzg.iwork.mapper" targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+        <!-- 指定数据库表 -->
+        <table tableName="iwork_band_anchor"></table>
+        <table tableName="iwork_band_info"></table>
+        <table tableName="iwork_band_record_info"></table>
+        <table tableName="iwork_band_record_sort"></table>
+        <table tableName="iwork_band_sort"></table>
+        <table tableName="iwork_books_info"></table>
+        <table tableName="iwork_books_key"></table>
+        <table tableName="iwork_books_mark"></table>
+        <table tableName="iwork_books_sort"></table>
+        <table tableName="iwork_books_source"></table>
+        <table tableName="iwork_cart"></table>
+        <table tableName="iwork_doc_record_info"></table>
+        <table tableName="iwork_doc_record_sort"></table>
+        <table tableName="iwork_evaluate"></table>
+        <table tableName="iwork_happy_info"></table>
+        <table tableName="iwork_happy_sort"></table>
+        <table tableName="iwork_history_info"></table>
+        <table tableName="iwork_history_sort"></table>
+        <table tableName="iwork_it_info"></table>
+        <table tableName="iwork_it_sort"></table>
+        <table tableName="iwork_listen_list_info"></table>
+        <table tableName="iwork_listen_list_sort"></table>
+        <table tableName="iwork_mysite"></table>
+        <table tableName="iwork_news_sort"></table>
+        <table tableName="iwork_news_source"></table>
+        <table tableName="iwork_online_operation_sort"></table>
+        <table tableName="iwork_online_record_info"></table>
+        <table tableName="iwork_online_record_sort"></table>
+        <table tableName="iwork_online_resource_info"></table>
+        <table tableName="iwork_online_resource_sort"></table>
+        <table tableName="iwork_online_resource_source"></table>
+        <table tableName="iwork_open_sort"></table>
+        <table tableName="iwork_picture_record_info"></table>
+        <table tableName="iwork_picture_record_sort"></table>
+        <table tableName="iwork_record_sort"></table>
+        <table tableName="iwork_remind_sort"></table>
+        <table tableName="iwork_resume_info"></table>
+        <table tableName="iwork_resume_module"></table>
+        <table tableName="iwork_shopp_sort"></table>
+        <table tableName="iwork_study_goal_info"></table>
+        <table tableName="iwork_study_goal_sort"></table>
+        <table tableName="iwork_study_goal_status"></table>
+        <table tableName="iwork_user"></table>
+        <table tableName="iwork_video_anchor"></table>
+        <table tableName="iwork_video_info"></table>
+        <table tableName="iwork_video_record_info"></table>
+        <table tableName="iwork_video_record_sort"></table>
+        <table tableName="iwork_video_sort"></table>
+        <table tableName="iwork_visit_genre"></table>
+        <table tableName="iwork_visit_info"></table>
+        <table tableName="iwork_visit_sort"></table>
+        <table tableName="iwork_website_sort"></table>
+
+
+        <!-- 有些表的字段需要指定java类型
+         <table schema="" tableName="">
+            <columnOverride column="" javaType="" />
+        </table> -->
+    </context>
+</generatorConfiguration>

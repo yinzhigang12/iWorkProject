@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzg.iwork.mapper.IworkPictureRecordInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yzg.iwork.pojo.IworkPictureRecordInfo">
+    <id column="pictureRecordInfoId" jdbcType="INTEGER" property="picturerecordinfoid" />
+    <result column="pictureRecordSortId" jdbcType="INTEGER" property="picturerecordsortid" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="pictureRecordTitle" jdbcType="VARCHAR" property="picturerecordtitle" />
+    <result column="pictureRecordAddr" jdbcType="VARCHAR" property="picturerecordaddr" />
+    <result column="pictureSourceAddr" jdbcType="VARCHAR" property="picturesourceaddr" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pictureRecordInfoId, pictureRecordSortId, userId, pictureRecordTitle, pictureRecordAddr, 
+    pictureSourceAddr, addTime, status
+  </sql>
+  <select id="selectByExample" parameterType="com.yzg.iwork.pojo.IworkPictureRecordInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iwork_picture_record_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from iwork_picture_record_info
+    where pictureRecordInfoId = #{picturerecordinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from iwork_picture_record_info
+    where pictureRecordInfoId = #{picturerecordinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yzg.iwork.pojo.IworkPictureRecordInfoExample">
+    delete from iwork_picture_record_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yzg.iwork.pojo.IworkPictureRecordInfo">
+    insert into iwork_picture_record_info (pictureRecordInfoId, pictureRecordSortId, 
+      userId, pictureRecordTitle, pictureRecordAddr, 
+      pictureSourceAddr, addTime, status
+      )
+    values (#{picturerecordinfoid,jdbcType=INTEGER}, #{picturerecordsortid,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{picturerecordtitle,jdbcType=VARCHAR}, #{picturerecordaddr,jdbcType=VARCHAR}, 
+      #{picturesourceaddr,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzg.iwork.pojo.IworkPictureRecordInfo">
+    insert into iwork_picture_record_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="picturerecordinfoid != null">
+        pictureRecordInfoId,
+      </if>
+      <if test="picturerecordsortid != null">
+        pictureRecordSortId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="picturerecordtitle != null">
+        pictureRecordTitle,
+      </if>
+      <if test="picturerecordaddr != null">
+        pictureRecordAddr,
+      </if>
+      <if test="picturesourceaddr != null">
+        pictureSourceAddr,
+      </if>
+      <if test="addtime != null">
+        addTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="picturerecordinfoid != null">
+        #{picturerecordinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="picturerecordsortid != null">
+        #{picturerecordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="picturerecordtitle != null">
+        #{picturerecordtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picturerecordaddr != null">
+        #{picturerecordaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="picturesourceaddr != null">
+        #{picturesourceaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yzg.iwork.pojo.IworkPictureRecordInfoExample" resultType="java.lang.Long">
+    select count(*) from iwork_picture_record_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iwork_picture_record_info
+    <set>
+      <if test="record.picturerecordinfoid != null">
+        pictureRecordInfoId = #{record.picturerecordinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.picturerecordsortid != null">
+        pictureRecordSortId = #{record.picturerecordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.picturerecordtitle != null">
+        pictureRecordTitle = #{record.picturerecordtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picturerecordaddr != null">
+        pictureRecordAddr = #{record.picturerecordaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picturesourceaddr != null">
+        pictureSourceAddr = #{record.picturesourceaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null">
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iwork_picture_record_info
+    set pictureRecordInfoId = #{record.picturerecordinfoid,jdbcType=INTEGER},
+      pictureRecordSortId = #{record.picturerecordsortid,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      pictureRecordTitle = #{record.picturerecordtitle,jdbcType=VARCHAR},
+      pictureRecordAddr = #{record.picturerecordaddr,jdbcType=VARCHAR},
+      pictureSourceAddr = #{record.picturesourceaddr,jdbcType=VARCHAR},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzg.iwork.pojo.IworkPictureRecordInfo">
+    update iwork_picture_record_info
+    <set>
+      <if test="picturerecordsortid != null">
+        pictureRecordSortId = #{picturerecordsortid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="picturerecordtitle != null">
+        pictureRecordTitle = #{picturerecordtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picturerecordaddr != null">
+        pictureRecordAddr = #{picturerecordaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="picturesourceaddr != null">
+        pictureSourceAddr = #{picturesourceaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pictureRecordInfoId = #{picturerecordinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzg.iwork.pojo.IworkPictureRecordInfo">
+    update iwork_picture_record_info
+    set pictureRecordSortId = #{picturerecordsortid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      pictureRecordTitle = #{picturerecordtitle,jdbcType=VARCHAR},
+      pictureRecordAddr = #{picturerecordaddr,jdbcType=VARCHAR},
+      pictureSourceAddr = #{picturesourceaddr,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where pictureRecordInfoId = #{picturerecordinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>
